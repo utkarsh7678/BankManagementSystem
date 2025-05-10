@@ -9,7 +9,23 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="bank_mangement_system" default="default" basedir=".">
     <description>Builds, tests, and runs the project bank mangement system.</description>
+
     <import file="nbproject/build-impl.xml"/>
+    <target name="-post-jar">
+    <mkdir dir="${dist.dir}/lib"/>
+    <!-- Copy external library -->
+    <copy file="Libraries/jcalendar-tz-1.3.3-4.jar" todir="${dist.dir}/lib"/>
+    <copy file="Libraries/mysql-connector-java-8.0.28.jar" todir="${dist.dir}/lib"/>
+
+    <!-- Create fat JAR including external libraries -->
+    <jar destfile="${dist.dir}/BankManagementSystem-fat.jar" basedir="${build.classes.dir}">
+        <manifest>
+            <attribute name="Main-Class" value="bank.mangement.system.Login"/>
+            <attribute name="Class-Path" value="lib/jcalendar-tz-1.3.3-4.jar lib/mysql-connector-java-8.0.28.jar"/>
+        </manifest>
+    </jar>
+</target>
+
     <!--
 
     There exist several targets which are by default empty and which can be 
